@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>竞技宝 · 查询对照延伸阅读</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: linear-gradient(145deg, #fbe9e7 0%, #fce4ec 30%, #fff3e0 70%, #f1f8e9 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.2rem;
+      line-height: 1.6;
+      color: #2e2e2e;
+    }
+    .wrapper {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+    /* Hero 区域 – 信息卡头 */
+    .hero-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 32px;
+      padding: 2.8rem 2.4rem;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(180, 100, 60, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+    .hero-card h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #4a2c1b;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(135deg, #7a3e2a, #b45f3a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-card .sub {
+      font-size: 1.05rem;
+      color: #5c4a3e;
+      max-width: 680px;
+      margin: 0 auto 1rem;
+    }
+    .hero-card .tagline {
+      display: inline-block;
+      background: #d9c2b0;
+      color: #3a2a1f;
+      padding: 0.3rem 1.4rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    }
+    /* 信息卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.6rem;
+    }
+    .info-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 28px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: 0 8px 20px rgba(140, 80, 40, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(100, 60, 30, 0.08);
+    }
+    .info-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #4f3324;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.9rem;
+    }
+    .info-card h3 span {
+      font-size: 1.5rem;
+    }
+    .info-card p {
+      font-size: 0.95rem;
+      color: #3f3a36;
+      margin-bottom: 0.75rem;
+    }
+    .info-card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .info-card li {
+      font-size: 0.9rem;
+      padding: 0.3rem 0;
+      color: #4b3f34;
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+    .info-card li::before {
+      content: "·";
+      color: #b3724e;
+      font-weight: 700;
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+    /* 自然链接段落 – 卡片样式 */
+    .link-section {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 28px;
+      padding: 2rem 2.2rem;
+      box-shadow: 0 8px 20px rgba(140, 80, 40, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .link-section h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #4a2c1b;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #eddad0;
+      display: inline-block;
+    }
+    .link-section p {
+      font-size: 0.98rem;
+      color: #3e3935;
+      margin-bottom: 0.9rem;
+    }
+    .link-section a {
+      color: #a15832;
+      font-weight: 500;
+      text-decoration: none;
+      background: #f1e4db;
+      padding: 0.1rem 0.5rem;
+      border-radius: 30px;
+      transition: background 0.2s, color 0.2s;
+      border: 1px solid transparent;
+    }
+    .link-section a:hover {
+      background: #dbbcad;
+      color: #3a261b;
+      border-color: #c7a78b;
+    }
+    .link-section .faq-note {
+      background: #f6ede7;
+      padding: 1rem 1.4rem;
+      border-radius: 20px;
+      margin-top: 1.2rem;
+      font-size: 0.92rem;
+      color: #4a3c31;
+    }
+    .link-section .faq-note strong {
+      color: #6e3f26;
+    }
+    /* 底部 */
+    .footnote {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #6b5c50;
+      padding: 0.8rem 0;
+      opacity: 0.7;
+    }
+    /* 响应式 */
+    @media (max-width: 600px) {
+      body {
+        padding: 1.2rem 0.8rem;
+      }
+      .hero-card {
+        padding: 2rem 1.2rem;
+      }
+      .hero-card h1 {
+        font-size: 2rem;
+      }
+      .info-card h3 {
+        font-size: 1.1rem;
+      }
+      .link-section {
+        padding: 1.5rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Hero 卡片 -->
+  <div class="hero-card">
+    <h1>竞技宝</h1>
+    <div class="sub">日常查询 · 对照信息 · 延伸阅读</div>
+    <div class="tagline">信息卡片式索引 · 保持简洁</div>
+  </div>
+
+  <!-- 三张信息用途卡片 -->
+  <div class="card-grid">
+    <div class="info-card">
+      <h3><span>📋</span> 快速查询</h3>
+      <p>赛事赛程、实时数据、历史记录——集中呈现关键字段，减少反复跳转。适合需要高频核对信息的读者。</p>
+      <ul>
+        <li>联赛与杯赛时间轴</li>
+        <li>队伍近期交锋对照</li>
+        <li>选手数据摘要</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3><span>🔍</span> 对照参考</h3>
+      <p>并排展示不同来源的战术统计、版本变动与阵容搭配，辅助独立判断。不做结论引导，只做信息整合。</p>
+      <ul>
+        <li>版本更新前后对比</li>
+        <li>胜率与出场率交叉</li>
+        <li>多维度筛选过滤</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3><span>📖</span> 延伸阅读</h3>
+      <p>聚合分析文章、术语解释、深度复盘链接，提供背景脉络。适合希望系统性了解竞技生态的读者。</p>
+      <ul>
+        <li>赛季复盘与节点梳理</li>
+        <li>常用战术演变笔记</li>
+        <li>赛事规则简释</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 适合人群卡片（单独卡片，更突出） -->
+  <div class="info-card" style="background: rgba(255, 245, 230, 0.9);">
+    <h3><span>👥</span> 适合人群</h3>
+    <p>内容设计面向日常查阅者、赛前信息收集者、以及希望搭建个人知识对照表的读者。不预设专业门槛，但信息密度对初次接触者可能偏高，建议配合索引使用。</p>
+    <ul>
+      <li>赛前快速检索关键数据</li>
+      <li>赛后对照复盘与记录</li>
+      <li>横向比较不同赛事信息</li>
+    </ul>
+  </div>
+
+  <!-- 自然链接段落 – 嵌入竞技宝 -->
+  <div class="link-section">
+    <h2>关于对照与索引</h2>
+    <p>
+      日常信息查阅往往涉及多个来源，<a href="https://zho-jingjibao.com">竞技宝</a>作为基础索引，可帮助减少信息碎片带来的决策疲劳。页面内所有卡片均围绕查询、对照、延伸三个动作展开，不预设特定立场，仅提供结构化入口。
+    </p>
+    <p>
+      对于希望系统整理赛事资料的读者，建议将常用字段与个人笔记配合使用，<a href="https://zho-jingjibao.com">竞技宝</a>的数据摘要可作为快速参考锚点。每次查询前可先明确信息需求——是找赛程、对比版本，还是追溯背景——再进入对应卡片。
+    </p>
+    <div class="faq-note">
+      <strong>❓ 常见疑问摘要</strong><br>
+      · 卡片中的“对照参考”适合横向对比两支队伍或两个版本的差异，不适合深度分析。<br>
+      · “延伸阅读”部分聚合了社区解析与赛事简报，内容来源多样，建议交叉验证。<br>
+      · 整体页面偏向信息索引，不提供实时比分或直播流，主要服务于查阅与整理。
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footnote">
+    信息卡片版 · 聚焦查询、对照、延伸 · 内容保持克制与专业
+  </div>
+</div>
+</body>
+</html>
